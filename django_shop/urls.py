@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from home.views import default
+from manager.views import addstock, sell, stock, item, Reports
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', default),
+    url(r'^addstock/', addstock),
+    url(r'^sell/', sell),
+    url(r'^stock/', stock),
+    url(r'^item/(?P<id>\d+)/$', item),
+    url(r'^reports/', Reports),
 ]

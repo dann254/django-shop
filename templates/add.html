@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{%block content%}
+<div class="container">
+  <div>
+  <div>
+
+  <div>
+    <div class="col-lg-4 col-md-6 col-sm-8 col-lg-offset-1 col-md-offset-1 col-sm-offset-2">
+      <legend>Add Stock</legend>
+      {% if errors %}
+      <div class="alert alert-danger">
+        {{errors}}
+      </div>
+      {% endif %}
+      {% if success %}
+      <div class="alert alert-success">
+        {{success}}
+      </div>
+      {% endif %}
+      <div style="color:red;">
+    </div><br>
+      <form method="POST" class="form-horizontal" accept-charset="UTF-8" role="form"> {% csrf_token %}
+        <br>
+        <input type="text" placeholder="Name" class="form-control" name="name" value="" required><br>
+        <input type="text" placeholder="Price" class="form-control" name="price" value="" required><br>
+        <input type="text" placeholder="Quantity" class="form-control" name="quantity" value=""><br>
+        <button type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.shortcuts import render
+from django.http import Http404
+from .forms import PurchaseForm
+from .models import Stock, Purchase, Sell
+
+# Create your views here.
+def addstock(request):
+    errors=None
+    success=None
+    if request.method == "POST":
+        try:
+            int(request.POST.get('price'))
+            if int(request.POST.get('price')) <= 0:
+                return render(request, "add.html", {"errors": "Price must be greater than 0"})
+        except:
+            return render(request, "add.html", {"errors": "Please enter a valid price"})
+
+        try:
+            int(request.POST.get('quantity'))
+            if int(request.POST.get('quantity')) <= 0:
+                return render(request, "add.html", {"errors": "Quantity must be greater than 0"})
+        except:
+            return render(request, "add.html", {"errors": "Please enter a valid quantity"})
+        try:
+            item = Stock.objects.get(name=request.POST.get('name'))
+            if item:
+                item.quantity = item.quantity + int(request.POST.get('quantity'))
+                item.save()
+                obj2 = Purchase.objects.create(
+                    name = request.POST.get('name'),
+                    quantity = request.POST.get('quantity'),
+                )
+
+                success="Successfully updated"
+                return render(request, "add.html", {"errors": errors, "success":success})
+        except:
+            obj = Stock.objects.create(
+                name = request.POST.get('name'),
+                price = request.POST.get('price'),
+                quantity = request.POST.get('quantity'),
+            )
+            obj2 = Purchase.objects.create(
+                name = request.POST.get('name'),
+                quantity = request.POST.get('quantity'),
+            )
+            success="Successfully added"
+    return render(request, "add.html", {"errors": errors, "success":success})
+
+def sell(request):
+    errors=None
+    success=None
+    if request.method == "POST":
+        try:
+            int(request.POST.get('quantity'))
+            if int(request.POST.get('quantity')) <= 0:
+                return render(request, "sell.html", {"errors": "Quantity must be greater than 0"})
+        except:
+            return render(request, "sell.html", {"errors": "Please enter a valid quantity"})
+        try:
+            item = Stock.objects.get(name=request.POST.get('name'))
+            if item:
+                if item.quantity < int(request.POST.get('quantity')):
+                    return render(request, "sell.html", {"errors": "you do not have enough items in store"})
+                item.quantity = item.quantity - int(request.POST.get('quantity'))
+                item.save()
+                obj2 = Sell.objects.create(
+                    name = request.POST.get('name'),
+                    quantity = request.POST.get('quantity'),
+                )
+                success="Sold"
+        except:
+            errors="You dont have an item with that name"
+    return render(request, "sell.html", {"errors": errors, "success":success})
+
+def stock(request):
+    obj = Stock.objects.all()
+    return render(request, "stock.html", {"obj": obj})
+
+def item(request, id):
+    try:
+        item = Stock.objects.get(pk=id)
+    except:
+        raise Http404
+    return render(request, "item.html", {"item":item})
+
+def Reports(request):
+    pr = Purchase.objects.all()
+    sl = Sell.objects.all()
+    return render(request, "report.html", {"pr":pr, "sl":sl})
