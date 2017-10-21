@@ -27,12 +27,12 @@ def addstock(request):
         try:
             if request.POST.get('name').strip() == "":
                 return render(request, "add.html", {"errors": "please enter a valid name", "success":success})
-            item = Stock.objects.get(name=request.POST.get('name'))
+            item = Stock.objects.get(name=request.POST.get('name').lower())
             if item:
                 item.quantity = item.quantity + int(request.POST.get('quantity'))
                 item.save()
                 obj2 = Purchase.objects.create(
-                    name = request.POST.get('name'),
+                    name = request.POST.get('name').lower(),
                     price = item.price,
                     quantity = request.POST.get('quantity'),
                 )
@@ -40,13 +40,14 @@ def addstock(request):
                 success="Successfully updated"
                 return render(request, "add.html", {"errors": errors, "success":success})
         except:
+
             obj = Stock.objects.create(
-                name = request.POST.get('name'),
+                name = request.POST.get('name').lower(),
                 price = request.POST.get('price'),
                 quantity = request.POST.get('quantity'),
             )
             obj2 = Purchase.objects.create(
-                name = request.POST.get('name'),
+                name = request.POST.get('name').lower(),
                 price = request.POST.get('price'),
                 quantity = request.POST.get('quantity'),
             )
@@ -64,14 +65,14 @@ def sell(request):
         except:
             return render(request, "sell.html", {"errors": "Please enter a valid quantity"})
         try:
-            item = Stock.objects.get(name=request.POST.get('name'))
+            item = Stock.objects.get(name=request.POST.get('name').lower())
             if item:
                 if item.quantity < int(request.POST.get('quantity')):
                     return render(request, "sell.html", {"errors": "you do not have enough items in stock"})
                 item.quantity = item.quantity - int(request.POST.get('quantity'))
                 item.save()
                 obj2 = Sell.objects.create(
-                    name = request.POST.get('name'),
+                    name = request.POST.get('name').lower(),
                     price = item.price,
                     quantity = request.POST.get('quantity'),
                 )
