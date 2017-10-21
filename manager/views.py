@@ -47,7 +47,7 @@ def addstock(request):
             )
             obj2 = Purchase.objects.create(
                 name = request.POST.get('name'),
-                price = item.price,
+                price = request.POST.get('price'),
                 quantity = request.POST.get('quantity'),
             )
             success="Successfully added"

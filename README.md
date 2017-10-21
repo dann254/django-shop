@@ -1,6 +1,9 @@
 # Django-Shop
 this is a sample django app for managing a shop
 
+## Hosted at
+  https://my-django-shop.herokuapp.com/
+
 ## Setting up
   1. clone this repo and `cd` into it.
   2. create a virtual environment `mkvirtualenv myenv`
