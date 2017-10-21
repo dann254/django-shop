@@ -85,7 +85,7 @@ DATABASES = {
     }
 }
 if os.environ.get("ONHEROKU") == "TRUE":
-    DB_FROM_ENV = dj_database_url.config(default=config('DATABASE_URL'))
+    DB_FROM_ENV = dj_database_url.config(default='postgres://yyxvcjwjwoktpc:6d82dcd0d49881a21831fc4040c608ab8bebbc43e5f21c743510f2973d49e75e@ec2-174-129-218-106.compute-1.amazonaws.com:5432/daijbn20inpmn6')
     DATABASES['default'].update(DB_FROM_ENV)
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
