@@ -10,6 +10,7 @@
           <th>name</th>
           <th>price</th>
           <th>quantity</th>
+          <th>date-time purchased</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +21,7 @@
           <td>{{item.name}}</td>
           <td>{{item.price}}</td>
           <td>{{item.quantity}}</td>
+          <td>{{item.date_updated}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -36,6 +38,7 @@
           <th>name</th>
           <th>price</th>
           <th>quantity</th>
+          <th>date-time sold</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +48,7 @@
           <td>{{item.name}}</td>
           <td>{{item.price}}</td>
           <td>{{item.quantity}}</td>
+          <td>{{item.date_created}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -61,6 +65,7 @@
           <th>name</th>
           <th>price</th>
           <th>quantity</th>
+          <th>date-time purged</th>
         </tr>
       </thead>
       <tbody>
@@ -70,6 +75,7 @@
           <td>{{item.name}}</td>
           <td>{{item.price}}</td>
           <td>{{item.quantity}}</td>
+          <td>{{item.date_created}}</td>
         </tr>
         {% endfor %}
       </tbody>
