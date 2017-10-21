@@ -74,12 +74,19 @@ WSGI_APPLICATION = 'django_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'shop',
+# You have to setup "ONHEROKU" = "TRUE" on heroku app environment variables.
+if os.environ.get("ONHEROKU") == "TRUE":
+    DB_FROM_ENV = dj_database_url.config()
+    DATABASES['default'].update(DB_FROM_ENV)
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'shop',
+        }
     }
-}
 
 
 # Password validation
