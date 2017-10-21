@@ -76,8 +76,9 @@ def sell(request):
     return render(request, "sell.html", {"errors": errors, "success":success})
 
 def stock(request):
+    msg = None
     obj = Stock.objects.all()
-    return render(request, "stock.html", {"obj": obj})
+    return render(request, "stock.html", {"obj": obj, "msg":msg})
 
 def item(request, id):
     try:
@@ -86,7 +87,46 @@ def item(request, id):
         raise Http404
     return render(request, "item.html", {"item":item})
 
+def Update(request, id):
+    errors=None
+    success=None
+    old=None
+    try:
+        old = Stock.objects.get(id=id)
+
+        if request.method == "POST":
+            try:
+                int(request.POST.get('price'))
+                if int(request.POST.get('price')) <= 0:
+                    return render(request, "update.html", {"errors": "price must be greater than 0"})
+            except:
+                return render(request, "update.html", {"errors": "Please enter a valid price"})
+            try:
+                if old:
+                    item = old
+                    item.price = int(request.POST.get('price'))
+                    item.save()
+                    success="Updated"
+            except:
+                errors="Item does not exist"
+    except:
+        error = "Item does not exists"
+    return render(request, "update.html", {"errors": errors, "success":success, "item":old})
+
+
 def Reports(request):
     pr = Purchase.objects.all()
     sl = Sell.objects.all()
     return render(request, "report.html", {"pr":pr, "sl":sl})
+def Delete(request, id):
+    try:
+        Stock.objects.get(id=id)
+        Stock.objects.filter(id=id).delete()
+        obj = Stock.objects.all()
+        msg = "Item deleted"
+    except:
+
+        obj = Stock.objects.all()
+        msg = "Item does not exists"
+
+    return render(request, "stock.html", {"obj": obj, "msg":msg})

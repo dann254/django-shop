@@ -26,13 +26,13 @@
     </table>
   </div>
   <div class="col-lg-12">
-    <a href="#"><div class="alert alert-danger"> DELETE! </div></a>
+    <a href="{% url 'manager:delete' item.id %}"><div class="alert alert-danger"> DELETE! </div></a>
   </div>
   <div class="col-lg-12">
-    <a href="#"><div class="alert alert-info"> UPDATE </div></a>
+    <a href="{% url 'manager:update' item.id %}"><div class="alert alert-info"> UPDATE </div></a>
   </div>
   <div class="col-lg-12">
-    <a href="#"><div class="alert alert-info"> view all </div></a>
+    <a href="{% url 'manager:stock'%}"><div class="alert alert-info"> view all </div></a>
   </div>
 </div>
 {% endblock %}

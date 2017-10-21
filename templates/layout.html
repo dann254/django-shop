@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>django-shop</title>
+    <title>MyShop</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
@@ -20,10 +20,10 @@
            <div id="navbar" class="navbar-collapse collapse">
              <ul class="nav navbar-nav">
                <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-               <li><a href="/sell/"><span class="glyphicon glyphicon-flag"></span> Sell</a></li>
-               <li><a href="/addstock/"><span class="glyphicon glyphicon-briefcase"></span> Add-stock</a></li>
-               <li><a href="/stock/"><span class="glyphicon glyphicon-info-sign"></span> Stock</a></li>
-               <li><a href="/reports/"><span class="glyphicon glyphicon-pencil"></span> Reports</a></li>
+               <li><a href="{% url 'manager:sell'%}"><span class="glyphicon glyphicon-flag"></span> Sell</a></li>
+               <li><a href="{% url 'manager:addstock'%}"><span class="glyphicon glyphicon-briefcase"></span> Add-stock</a></li>
+               <li><a href="{% url 'manager:stock'%}"><span class="glyphicon glyphicon-info-sign"></span> Stock</a></li>
+               <li><a href="{% url 'manager:reports'%}ts/"><span class="glyphicon glyphicon-pencil"></span> Reports</a></li>
              </ul>
              </div>
        </div>
