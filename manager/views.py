@@ -33,6 +33,7 @@ def addstock(request):
                 item.save()
                 obj2 = Purchase.objects.create(
                     name = request.POST.get('name'),
+                    price = item.price,
                     quantity = request.POST.get('quantity'),
                 )
 
@@ -46,6 +47,7 @@ def addstock(request):
             )
             obj2 = Purchase.objects.create(
                 name = request.POST.get('name'),
+                price = item.price,
                 quantity = request.POST.get('quantity'),
             )
             success="Successfully added"
@@ -70,6 +72,7 @@ def sell(request):
                 item.save()
                 obj2 = Sell.objects.create(
                     name = request.POST.get('name'),
+                    price = item.price,
                     quantity = request.POST.get('quantity'),
                 )
                 success="Sold"

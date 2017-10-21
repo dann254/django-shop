@@ -16,6 +16,7 @@ class Stock(models.Model):
 
 class Purchase(models.Model):
     name     = models.CharField(max_length=120)
+    price    = models.PositiveIntegerField()
     quantity = models.PositiveIntegerField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -24,6 +25,7 @@ class Purchase(models.Model):
         return self.name
 class Sell(models.Model):
     name     = models.CharField(max_length=120)
+    price    = models.PositiveIntegerField()
     quantity = models.PositiveIntegerField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
