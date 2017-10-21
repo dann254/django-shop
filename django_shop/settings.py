@@ -85,7 +85,6 @@ DATABASES = {
 if os.environ.get("ONHEROKU") == "TRUE":
     DB_FROM_ENV = dj_database_url.config()
     DATABASES['default'].update(DB_FROM_ENV)
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 
