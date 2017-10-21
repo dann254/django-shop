@@ -2,7 +2,7 @@
 {%block content%}
 <div class="container">
   <div>
-  <div>
+  </div>
 
   <div>
     <div class="col-lg-4 col-md-6 col-sm-8 col-lg-offset-1 col-md-offset-1 col-sm-offset-2">
@@ -17,7 +17,8 @@
         {{success}}
       </div>
       {% endif %}
-      <div style="color:red;">
+      <div style="color:blue;">
+        To update item already in stock, enter it's name, price as 1 and quantity. the quantity entered will be incremented on the existing quantity.
     </div><br>
       <form method="POST" class="form-horizontal" accept-charset="UTF-8" role="form"> {% csrf_token %}
         <br>

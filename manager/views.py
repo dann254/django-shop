@@ -25,6 +25,8 @@ def addstock(request):
         except:
             return render(request, "add.html", {"errors": "Please enter a valid quantity"})
         try:
+            if request.POST.get('name').strip() == "":
+                return render(request, "add.html", {"errors": "please enter a valid name", "success":success})
             item = Stock.objects.get(name=request.POST.get('name'))
             if item:
                 item.quantity = item.quantity + int(request.POST.get('quantity'))
@@ -63,7 +65,7 @@ def sell(request):
             item = Stock.objects.get(name=request.POST.get('name'))
             if item:
                 if item.quantity < int(request.POST.get('quantity')):
-                    return render(request, "sell.html", {"errors": "you do not have enough items in store"})
+                    return render(request, "sell.html", {"errors": "you do not have enough items in stock"})
                 item.quantity = item.quantity - int(request.POST.get('quantity'))
                 item.save()
                 obj2 = Sell.objects.create(
@@ -78,6 +80,8 @@ def sell(request):
 def stock(request):
     msg = None
     obj = Stock.objects.all()
+    if not obj.count():
+        msg = "No items yet"
     return render(request, "stock.html", {"obj": obj, "msg":msg})
 
 def item(request, id):
