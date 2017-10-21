@@ -52,5 +52,29 @@
     </table>
   </div>
 
+  <div class="col-lg-6">
+    <legend>Purge report: <i>items deleted from stock</i>   </legend>
+    <table class="table table-striped">
+      <thead class="thead thead-inverse">
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>price</th>
+          <th>quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in pg %}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
 </div>
 {% endblock %}

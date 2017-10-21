@@ -32,3 +32,12 @@ class Sell(models.Model):
 
     def __str__(self):
         return self.name
+class Purge(models.Model):
+    name     = models.CharField(max_length=120)
+    price    = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

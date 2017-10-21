@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import Http404
 from .forms import PurchaseForm
-from .models import Stock, Purchase, Sell
+from .models import Stock, Purchase, Sell, Purge
 
 # Create your views here.
 def addstock(request):
@@ -125,10 +125,16 @@ def Update(request, id):
 def Reports(request):
     pr = Purchase.objects.all()
     sl = Sell.objects.all()
-    return render(request, "report.html", {"pr":pr, "sl":sl})
+    pg = Purge.objects.all()
+    return render(request, "report.html", {"pr":pr, "sl":sl, "pg":pg})
 def Delete(request, id):
     try:
-        Stock.objects.get(id=id)
+        item = Stock.objects.get(id=id)
+        obj = Purge.objects.create(
+            name = item.name,
+            price = item.price,
+            quantity = item.quantity,
+        )
         Stock.objects.filter(id=id).delete()
         obj = Stock.objects.all()
         msg = "Item deleted"
