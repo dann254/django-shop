@@ -12,13 +12,6 @@ def addstock(request):
     success=None
     if request.method == "POST":
         try:
-            int(request.POST.get('price'))
-            if int(request.POST.get('price')) <= 0:
-                return render(request, "add.html", {"errors": "Price must be greater than 0"})
-        except:
-            return render(request, "add.html", {"errors": "Please enter a valid price"})
-
-        try:
             int(request.POST.get('quantity'))
             if int(request.POST.get('quantity')) <= 0:
                 return render(request, "add.html", {"errors": "Quantity must be greater than 0"})
@@ -40,7 +33,12 @@ def addstock(request):
                 success="Successfully updated"
                 return render(request, "add.html", {"errors": errors, "success":success})
         except:
-
+            try:
+                int(request.POST.get('price'))
+                if int(request.POST.get('price')) <= 0:
+                    return render(request, "add.html", {"errors": "Price must be greater than 0"})
+            except:
+                return render(request, "add.html", {"errors": "Please enter a valid price"})
             obj = Stock.objects.create(
                 name = request.POST.get('name').lower(),
                 price = request.POST.get('price'),

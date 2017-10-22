@@ -18,12 +18,12 @@
       </div>
       {% endif %}
       <div style="color:blue;">
-        To update item already in stock, enter it's name, price as 1 and quantity. the quantity entered will be incremented on the existing quantity.
+        To update item already in stock, enter it's name, and quantity. the quantity entered will be incremented on the existing quantity.
     </div><br>
       <form method="POST" class="form-horizontal" accept-charset="UTF-8" role="form"> {% csrf_token %}
         <br>
         <input type="text" placeholder="Name" class="form-control" name="name" value="" required><br>
-        <input type="text" placeholder="Price" class="form-control" name="price" value="" required><br>
+        <input type="text" placeholder="Price" class="form-control" name="price" value=""><br>
         <input type="text" placeholder="Quantity" class="form-control" name="quantity" value=""><br>
         <button type="submit" name="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
       </form>
